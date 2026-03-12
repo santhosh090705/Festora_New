@@ -7,32 +7,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#0a0a0f;--surface:#13131a;--card:#1a1a24;--border:#2a2a3a;
-  --accent:#ff5c35;--accent2:#ffb347;--text:#f0ede8;--muted:#7a7a8a;
-}
+:root{--bg:#0a0a0f;--surface:#13131a;--card:#1a1a24;--border:#2a2a3a;--accent:#ff5c35;--accent2:#ffb347;--text:#f0ede8;--muted:#7a7a8a}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.4}
-
-/* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);background:rgba(10,10,15,.85);border-bottom:1px solid var(--border)}
 .logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.1em;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
 .nav-links{display:flex;gap:2rem;list-style:none}
 .nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s}
 .nav-links a:hover,.nav-links a.active{color:var(--text)}
-/* User area in nav */
 .nav-user{display:flex;align-items:center;gap:.8rem}
 .nav-avatar{width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);cursor:pointer}
-.nav-name{font-size:.85rem;font-weight:500;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.nav-cta{background:var(--accent);color:#fff;padding:.5rem 1.4rem;border-radius:2rem;font-weight:600;font-size:.85rem;text-decoration:none;transition:all .2s;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
-.nav-cta:hover{background:#ff7a5a;transform:translateY(-1px)}
+.nav-name{font-size:.85rem;font-weight:500}
+.nav-cta{background:var(--accent);color:#fff;padding:.5rem 1.4rem;border-radius:2rem;font-weight:600;font-size:.85rem;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.nav-cta:hover{background:#ff7a5a}
 .nav-signout{background:none;border:1px solid var(--border);color:var(--muted);padding:.4rem 1rem;border-radius:2rem;font-size:.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
 .nav-signout:hover{border-color:var(--accent);color:var(--accent)}
-
-/* HERO */
 .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:8rem 2.5rem 4rem;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 40%,rgba(255,92,53,.12) 0%,transparent 70%),radial-gradient(ellipse 60% 80% at 20% 80%,rgba(255,179,71,.07) 0%,transparent 60%)}
+.hero-bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 60% 40%,rgba(255,92,53,.12) 0%,transparent 70%),radial-gradient(ellipse 60% 80% at 20% 80%,rgba(255,179,71,.07) 0%,transparent 60%)}
 .hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,92,53,.1);border:1px solid rgba(255,92,53,.3);padding:.35rem 1rem;border-radius:2rem;font-size:.8rem;color:var(--accent);font-weight:500;margin-bottom:1.5rem;width:fit-content}
 .hero-tag span{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 1.5s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
@@ -42,13 +34,11 @@ h1 em{font-style:italic;color:var(--accent)}
 .hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
 .btn-primary{background:var(--accent);color:#fff;padding:.85rem 2rem;border-radius:2rem;font-weight:600;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:1rem}
 .btn-primary:hover{background:#ff7a5a;transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,92,53,.3)}
-.btn-outline{border:1px solid var(--border);color:var(--text);padding:.85rem 2rem;border-radius:2rem;font-weight:500;text-decoration:none;transition:all .25s}
+.btn-outline{border:1px solid var(--border);color:var(--text);padding:.85rem 2rem;border-radius:2rem;font-weight:500;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center}
 .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
 .hero-stats{display:flex;gap:3rem;margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border);flex-wrap:wrap}
 .stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;line-height:1}
 .stat-label{font-size:.8rem;color:var(--muted);margin-top:.2rem}
-
-/* SEARCH */
 .search-section{padding:3rem 2.5rem 0}
 .search-bar{background:var(--surface);border:1px solid var(--border);border-radius:1rem;display:flex;align-items:center;gap:1rem;padding:1rem 1.5rem;max-width:700px;margin:0 auto;transition:border-color .2s}
 .search-bar:focus-within{border-color:var(--accent)}
@@ -57,23 +47,17 @@ h1 em{font-style:italic;color:var(--accent)}
 .filters{display:flex;gap:.75rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap}
 .filter-btn{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:.45rem 1.2rem;border-radius:2rem;font-size:.85rem;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
 .filter-btn.active,.filter-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
-
-/* EVENTS GRID */
 .events-section{padding:3rem 2.5rem 5rem}
 .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem}
 .section-title{font-family:'DM Serif Display',serif;font-size:2rem}
 .events-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}
-
-/* EVENT CARD */
-.event-card{background:var(--card);border:1px solid var(--border);border-radius:1.2rem;overflow:hidden;cursor:pointer;transition:all .3s;position:relative;text-decoration:none;display:block;color:inherit}
+.event-card{background:var(--card);border:1px solid var(--border);border-radius:1.2rem;overflow:hidden;cursor:pointer;transition:all .3s;text-decoration:none;display:block;color:inherit}
 .event-card:hover{transform:translateY(-6px);border-color:var(--accent);box-shadow:0 20px 50px rgba(0,0,0,.4)}
 .card-img{position:relative;height:200px;overflow:hidden}
 .card-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
 .event-card:hover .card-img img{transform:scale(1.05)}
 .card-img-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,15,.9) 0%,transparent 60%);opacity:.7}
 .card-category{position:absolute;top:1rem;left:1rem;background:var(--accent);color:#fff;padding:.25rem .75rem;border-radius:2rem;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
-.card-fav{position:absolute;top:1rem;right:1rem;width:32px;height:32px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.9rem;transition:all .2s;border:none;cursor:pointer}
-.card-fav:hover,.card-fav.active{background:var(--accent)}
 .card-body{padding:1.2rem}
 .card-date{font-size:.78rem;color:var(--accent2);font-weight:500;margin-bottom:.4rem}
 .card-title{font-family:'DM Serif Display',serif;font-size:1.25rem;margin-bottom:.5rem;line-height:1.2}
@@ -87,32 +71,51 @@ h1 em{font-style:italic;color:var(--accent)}
 .event-card.featured{grid-column:span 2}
 .event-card.featured .card-img{height:280px}
 @media(max-width:768px){.event-card.featured{grid-column:span 1}.event-card.featured .card-img{height:200px}.nav-links{display:none}}
-
-/* AUTH MODAL */
 .auth-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem}
 .auth-modal-overlay.open{display:flex}
-.auth-modal{background:var(--card);border:1px solid var(--border);border-radius:1.5rem;width:100%;max-width:400px;padding:2.5rem;text-align:center;animation:popIn .3s ease}
+.auth-modal{background:var(--card);border:1px solid var(--border);border-radius:1.5rem;width:100%;max-width:400px;padding:2.5rem;text-align:center;animation:popIn .3s ease;position:relative}
 @keyframes popIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
 .auth-logo{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:.1em;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
 .auth-title{font-family:'DM Serif Display',serif;font-size:1.6rem;margin-bottom:.4rem}
 .auth-sub{color:var(--muted);font-size:.88rem;margin-bottom:2rem;line-height:1.6}
 .google-btn{width:100%;background:#fff;color:#1a1a1a;border:none;padding:.9rem 1.5rem;border-radius:.8rem;font-size:.95rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.8rem;transition:all .2s;font-family:'DM Sans',sans-serif}
-.google-btn:hover{background:#f5f5f5;transform:translateY(-2px);box-shadow:0 8px 25px rgba(255,255,255,.15)}
+.google-btn:hover{background:#f5f5f5;transform:translateY(-2px)}
 .google-btn svg{width:20px;height:20px;flex-shrink:0}
-.auth-divider{margin:1.2rem 0;color:var(--muted);font-size:.78rem;position:relative}
-.auth-divider::before,.auth-divider::after{content:'';position:absolute;top:50%;width:40%;height:1px;background:var(--border)}
-.auth-divider::before{left:0}
-.auth-divider::after{right:0}
-.auth-note{font-size:.75rem;color:var(--muted);margin-top:1.2rem;line-height:1.6}
-.auth-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;padding:.3rem}
-.auth-modal{position:relative}
+.auth-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer}
 .auth-error{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#f87171;padding:.7rem 1rem;border-radius:.5rem;font-size:.82rem;margin-bottom:1rem;display:none}
-
-/* TOAST */
-.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--card);border:1px solid var(--border);border-radius:2rem;padding:.75rem 1.5rem;font-size:.88rem;z-index:9998;transition:transform .3s;white-space:nowrap;display:flex;align-items:center;gap:.5rem}
+.auth-note{font-size:.75rem;color:var(--muted);margin-top:1.2rem;line-height:1.6}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--card);border:1px solid var(--border);border-radius:2rem;padding:.75rem 1.5rem;font-size:.88rem;z-index:9998;transition:transform .3s}
 .toast.show{transform:translateX(-50%) translateY(0)}
-
 footer{background:var(--surface);border-top:1px solid var(--border);padding:2.5rem;text-align:center;color:var(--muted);font-size:.85rem}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.chat-widget{position:fixed;bottom:2rem;right:2rem;z-index:9997;display:flex;flex-direction:column;align-items:flex-end;gap:.8rem}
+.chat-toggle{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 8px 30px rgba(255,92,53,.4);transition:all .3s;position:relative}
+.chat-toggle:hover{transform:scale(1.1)}
+.chat-box{width:360px;height:500px;background:var(--card);border:1px solid var(--border);border-radius:1.5rem;display:none;flex-direction:column;overflow:hidden;box-shadow:0 25px 60px rgba(0,0,0,.6)}
+.chat-box.open{display:flex}
+.chat-header{background:linear-gradient(135deg,var(--accent),var(--accent2));padding:1rem 1.2rem;display:flex;align-items:center;justify-content:space-between}
+.chat-header-info{display:flex;align-items:center;gap:.7rem}
+.chat-avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.chat-header-title{font-weight:700;font-size:.95rem;color:#fff}
+.chat-header-sub{font-size:.72rem;color:rgba(255,255,255,.8)}
+.chat-close-btn{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer}
+.chat-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.8rem}
+.chat-msg{max-width:85%;padding:.7rem 1rem;border-radius:1rem;font-size:.85rem;line-height:1.5}
+.chat-msg.bot{background:var(--surface);border:1px solid var(--border);align-self:flex-start;border-bottom-left-radius:.2rem}
+.chat-msg.user{background:var(--accent);color:#fff;align-self:flex-end;border-bottom-right-radius:.2rem}
+.typing-dots{display:flex;gap:4px;align-items:center;padding:.2rem 0}
+.typing-dots span{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:dot 1.2s infinite}
+.typing-dots span:nth-child(2){animation-delay:.2s}
+.typing-dots span:nth-child(3){animation-delay:.4s}
+@keyframes dot{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.chat-quick{padding:.6rem 1rem;display:flex;gap:.5rem;flex-wrap:wrap;border-top:1px solid var(--border)}
+.quick-btn{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:.35rem .8rem;border-radius:2rem;font-size:.75rem;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.quick-btn:hover{border-color:var(--accent);color:var(--accent)}
+.chat-input-area{padding:.8rem 1rem;border-top:1px solid var(--border);display:flex;gap:.6rem;align-items:center}
+.chat-input{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:2rem;padding:.6rem 1rem;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif;outline:none}
+.chat-input:focus{border-color:var(--accent)}
+.chat-send{width:36px;height:36px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;font-size:1rem;flex-shrink:0;color:#fff}
+.chat-badge{position:absolute;top:-4px;right:-4px;width:18px;height:18px;background:#4ade80;border-radius:50%;font-size:.65rem;font-weight:700;color:#000;display:flex;align-items:center;justify-content:center}
 </style>
 </head>
 <body>
@@ -124,7 +127,6 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:2.5r
     <li><a href="my-tickets.html">My Tickets</a></li>
   </ul>
   <div class="nav-user" id="navUser">
-    <!-- injected by JS -->
     <button class="nav-cta" onclick="openAuthModal()">Sign In with Google</button>
   </div>
 </nav>
@@ -135,7 +137,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:2.5r
   <h1>Find Your Next <em>Unforgettable</em> Experience</h1>
   <p class="hero-sub">Concerts, festivals, comedy nights and more — book tickets instantly and get your pass delivered to your inbox.</p>
   <div class="hero-actions">
-    <a href="#events" class="btn-primary">Browse Events →</a>
+    <button class="btn-primary" onclick="browseEvents()">Browse Events &#8594;</button>
     <a href="my-tickets.html" class="btn-outline">My Tickets</a>
   </div>
   <div class="hero-stats">
@@ -147,231 +149,209 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:2.5r
 
 <section class="search-section">
   <div class="search-bar">
-    <span>🔍</span>
-    <input type="text" placeholder="Search events, artists, venues…" id="searchInput" oninput="renderEvents()"/>
+    <span>&#128269;</span>
+    <input type="text" id="searchInput" placeholder="Search events, artists, venues…" oninput="renderEvents()"/>
   </div>
   <div class="filters">
     <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
-    <button class="filter-btn" onclick="setFilter('music',this)">🎵 Music</button>
-    <button class="filter-btn" onclick="setFilter('comedy',this)">😂 Comedy</button>
-    <button class="filter-btn" onclick="setFilter('festival',this)">🎪 Festival</button>
-    <button class="filter-btn" onclick="setFilter('sports',this)">⚽ Sports</button>
-    <button class="filter-btn" onclick="setFilter('tech',this)">💻 Tech</button>
+    <button class="filter-btn" onclick="setFilter('music',this)">&#127925; Music</button>
+    <button class="filter-btn" onclick="setFilter('comedy',this)">&#128514; Comedy</button>
+    <button class="filter-btn" onclick="setFilter('festival',this)">&#127914; Festival</button>
+    <button class="filter-btn" onclick="setFilter('sports',this)">&#9917; Sports</button>
+    <button class="filter-btn" onclick="setFilter('tech',this)">&#128187; Tech</button>
   </div>
 </section>
 
 <section class="events-section" id="events">
   <div class="section-header">
     <h2 class="section-title">Upcoming Events</h2>
+    <button class="btn-primary" onclick="setFilter('all',document.querySelector('.filter-btn'))" style="font-size:.85rem;padding:.6rem 1.4rem">View All &#8594;</button>
   </div>
   <div class="events-grid" id="eventsGrid"></div>
 </section>
 
 <footer>
   <div class="logo" style="display:inline-block;margin-bottom:.5rem">Festora</div>
-  <p>© 2026 Festora. Discover. Book. Experience.</p>
+  <p>&#169; 2026 Festora. Discover. Book. Experience.</p>
 </footer>
 
-<!-- AUTH MODAL -->
 <div class="auth-modal-overlay" id="authModalOverlay">
   <div class="auth-modal">
-    <button class="auth-close" onclick="closeAuthModal()">✕</button>
+    <button class="auth-close" onclick="closeAuthModal()">&#10005;</button>
     <div class="auth-logo">Festora</div>
     <div class="auth-title">Welcome Back</div>
-    <div class="auth-sub">Sign in to book tickets, view your passes,<br>and get confirmations sent to your email.</div>
+    <div class="auth-sub">Sign in to book tickets and get your e-pass by email.</div>
     <div class="auth-error" id="authError"></div>
     <button class="google-btn" onclick="signInWithGoogle()">
-      <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg>
+      <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
       Continue with Google
     </button>
-    <div class="auth-note">By signing in, you agree to our Terms of Service.<br>We only use your email to send booking confirmations.</div>
+    <div class="auth-note">By signing in, you agree to our Terms of Service.</div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<!-- FIREBASE SDK -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
-  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, collection, getDocs, doc, setDoc, getDoc }
-  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-// ─── REPLACE WITH YOUR FIREBASE CONFIG ───────────────────────
-const firebaseConfig = {
-  apiKey:            "AIzaSyCtCp5SwWLwnD-rtpllvhc-RmbxUhvAy9c",
-  authDomain:        "festora-6bac8.firebaseapp.com",
-  projectId:         "festora-6bac8",
-  storageBucket:     "festora-6bac8.firebasestorage.app",
-  messagingSenderId: "909677087964",
-  appId:             "1:909677087964:web:1f9e5a1df7b546d84a7819",
-  measurementId:     "G-5E7VZ78YM4"
-};;
-// ─────────────────────────────────────────────────────────────
-
-const app  = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db   = getFirestore(app);
-const provider = new GoogleAuthProvider();
-
-// Expose globals for inline handlers
-window._auth     = auth;
-window._db       = db;
-window._provider = provider;
-
-// ── AUTH STATE ──────────────────────────────────────────────
-onAuthStateChanged(auth, async user => {
-  window._currentUser = user;
-  renderNav(user);
-  if(user){
-    closeAuthModal();
-    // Upsert user doc in Firestore
-    const ref = doc(db, 'users', user.uid);
-    const snap = await getDoc(ref);
-    if(!snap.exists()){
-      await setDoc(ref, {
-        uid:       user.uid,
-        name:      user.displayName,
-        email:     user.email,
-        photo:     user.photoURL,
-        createdAt: new Date().toISOString()
-      });
-    }
-    showToast('👋 Welcome, ' + user.displayName.split(' ')[0] + '!');
-  }
-});
-
-function renderNav(user){
-  const el = document.getElementById('navUser');
-  if(user){
-    el.innerHTML = `
-      <span class="nav-name">${user.displayName.split(' ')[0]}</span>
-      <img class="nav-avatar" src="${user.photoURL}" alt="${user.displayName}" title="${user.displayName}"/>
-      <button class="nav-signout" onclick="window._signOut()">Sign Out</button>`;
-  } else {
-    el.innerHTML = `<button class="nav-cta" onclick="openAuthModal()">Sign In with Google</button>`;
-  }
-}
-
-window._signOut = async () => {
-  await signOut(auth);
-  showToast('👋 Signed out successfully');
-};
-
-window.signInWithGoogle = async () => {
-  const errEl = document.getElementById('authError');
-  errEl.style.display = 'none';
-  try {
-    await signInWithPopup(auth, provider);
-  } catch(e) {
-    errEl.textContent = e.message;
-    errEl.style.display = 'block';
-  }
-};
-
-// ── SEED EVENTS INTO FIRESTORE (runs once) ───────────────────
-const EVENTS = [
-  {id:'ev1',title:"Arijit Singh Live",category:"music",date:"Sat, 22 Mar 2026",time:"7:00 PM",venue:"DY Patil Stadium, Mumbai",price:1499,seats:342,img:"https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&q=80",featured:true,description:"An enchanting evening with the voice of a generation. Arijit Singh performs his greatest hits live with a 40-piece orchestra.",tickets:[{name:"General",price:1499,desc:"Standing area, great atmosphere"},{name:"Premium",price:2999,desc:"Reserved seating, better view"},{name:"VIP",price:5999,desc:"Front row + meet & greet"}]},
-  {id:'ev2',title:"Sunburn Arena ft. Martin Garrix",category:"music",date:"Sun, 29 Mar 2026",time:"6:00 PM",venue:"MMRDA Grounds, BKC, Mumbai",price:2499,seats:1200,img:"https://images.unsplash.com/photo-1506157786151-b8491531f063?w=800&q=80",description:"The world's biggest DJ brings his signature sound to Mumbai.",tickets:[{name:"General",price:2499,desc:"General admission"},{name:"Premium",price:4999,desc:"Premium zone with bar"},{name:"VIP",price:9999,desc:"VIP lounge access"}]},
-  {id:'ev3',title:"Zakir Khan – Haq Se Single",category:"comedy",date:"Fri, 20 Mar 2026",time:"8:00 PM",venue:"JLN Stadium, New Delhi",price:799,seats:89,img:"https://images.unsplash.com/photo-1527224538127-2104bb71c51b?w=800&q=80",description:"India's favorite 'sakht launda' is back with his brand new solo show.",tickets:[{name:"Standard",price:799,desc:"General seating"},{name:"Gold",price:1499,desc:"Premium seating, closer to stage"}]},
-  {id:'ev4',title:"Lollapalooza India 2026",category:"festival",date:"Sat–Sun, 5–6 Apr 2026",time:"2:00 PM",venue:"Mahalaxmi Racecourse, Mumbai",price:3999,seats:5600,img:"https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80",description:"Two days of world-class music, art, and culture across 4 stages.",tickets:[{name:"Day Pass",price:3999,desc:"Single day entry"},{name:"Weekend Pass",price:6999,desc:"Both days"},{name:"VIP Weekend",price:14999,desc:"Both days + VIP lounge"}]},
-  {id:'ev5',title:"IPL: MI vs CSK",category:"sports",date:"Wed, 18 Mar 2026",time:"7:30 PM",venue:"Wankhede Stadium, Mumbai",price:999,seats:28,img:"https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800&q=80",description:"The greatest rivalry in cricket. Book your seat for the most electric atmosphere in T20.",tickets:[{name:"East Stand",price:999,desc:"General seating"},{name:"North Stand",price:2499,desc:"Covered, better view"},{name:"Corporate Box",price:9999,desc:"Premium box with catering"}]},
-  {id:'ev6',title:"Google I/O Extended India",category:"tech",date:"Thu, 26 Mar 2026",time:"10:00 AM",venue:"Bangalore International Centre",price:499,seats:210,img:"https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",description:"India's biggest developer event. Keynotes, workshops, networking.",tickets:[{name:"General",price:499,desc:"Full access to all sessions"},{name:"Workshop Pass",price:1499,desc:"Sessions + hands-on workshops"}]},
-];
-
-// Seed to Firestore (safe – won't overwrite existing)
-async function seedEvents(){
-  for(const ev of EVENTS){
-    const ref = doc(db, 'events', ev.id);
-    const snap = await getDoc(ref);
-    if(!snap.exists()) await setDoc(ref, ev);
-  }
-}
-seedEvents();
-
-// Load events from Firestore
-async function loadEvents(){
-  try {
-    const snap = await getDocs(collection(db, 'events'));
-    const evs = snap.docs.map(d => d.data());
-    window._allEvents = evs;
-    renderEvents();
-  } catch(e){
-    // Fallback to local if Firestore not configured yet
-    window._allEvents = EVENTS;
-    renderEvents();
-  }
-}
-loadEvents();
-
-// make loadEvents global for filter reuse
-window._loadedEvents = true;
-</script>
+<div class="chat-widget">
+  <div class="chat-box" id="chatBox">
+    <div class="chat-header">
+      <div class="chat-header-info">
+        <div class="chat-avatar">&#127903;</div>
+        <div>
+          <div class="chat-header-title">Festora Assistant</div>
+          <div class="chat-header-sub">&#9679; Online</div>
+        </div>
+      </div>
+      <button class="chat-close-btn" onclick="toggleChat()">&#10005;</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">&#128075; Hi! I'm your Festora Assistant. Ask me about events, bookings, or anything else!</div>
+    </div>
+    <div class="chat-quick" id="quickBtns">
+      <button class="quick-btn" onclick="sendQuick('What events are available?')">&#127925; Events</button>
+      <button class="quick-btn" onclick="sendQuick('How do I book a ticket?')">&#127903; Booking</button>
+      <button class="quick-btn" onclick="sendQuick('How do I see my tickets?')">&#128203; My Tickets</button>
+      <button class="quick-btn" onclick="sendQuick('Tell me about VIP tickets')">&#11088; VIP</button>
+    </div>
+    <div class="chat-input-area">
+      <input class="chat-input" id="chatInput" placeholder="Ask me anything…" onkeydown="if(event.key==='Enter')sendChat()"/>
+      <button class="chat-send" onclick="sendChat()">&#10148;</button>
+    </div>
+  </div>
+  <button class="chat-toggle" onclick="toggleChat()">
+    &#128172;
+    <span class="chat-badge" id="chatBadge">1</span>
+  </button>
+</div>
 
 <script>
-// ── NON-MODULE GLOBALS ───────────────────────────────────────
-let currentFilter = 'all';
-window._allEvents = window._allEvents || [];
+// ── ALL EVENTS DATA ───────────────────────────────────────────
+var EVENTS = [
+  {id:'ev1',title:"Arijit Singh Live",category:"music",date:"Sat, 22 Mar 2026",time:"7:00 PM",venue:"DY Patil Stadium, Mumbai",price:1499,seats:342,img:"https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&q=80",featured:true,description:"An enchanting evening with the voice of a generation.",tickets:[{name:"General",price:1499,desc:"Standing area"},{name:"Premium",price:2999,desc:"Reserved seating"},{name:"VIP",price:5999,desc:"Front row + meet and greet"}]},
+  {id:'ev2',title:"Sunburn Arena ft. Martin Garrix",category:"music",date:"Sun, 29 Mar 2026",time:"6:00 PM",venue:"MMRDA Grounds, BKC, Mumbai",price:2499,seats:1200,img:"https://images.unsplash.com/photo-1506157786151-b8491531f063?w=800&q=80",description:"The world's biggest DJ in Mumbai.",tickets:[{name:"General",price:2499,desc:"General admission"},{name:"Premium",price:4999,desc:"Premium zone"},{name:"VIP",price:9999,desc:"VIP lounge"}]},
+  {id:'ev3',title:"Zakir Khan Comedy Show",category:"comedy",date:"Fri, 20 Mar 2026",time:"8:00 PM",venue:"JLN Stadium, New Delhi",price:799,seats:89,img:"https://images.unsplash.com/photo-1527224538127-2104bb71c51b?w=800&q=80",description:"India's favorite comedian is back!",tickets:[{name:"Standard",price:799,desc:"General seating"},{name:"Gold",price:1499,desc:"Premium seating"}]},
+  {id:'ev4',title:"Lollapalooza India 2026",category:"festival",date:"Sat-Sun, 5-6 Apr 2026",time:"2:00 PM",venue:"Mahalaxmi Racecourse, Mumbai",price:3999,seats:5600,img:"https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80",description:"Two days of world-class music and culture.",tickets:[{name:"Day Pass",price:3999,desc:"Single day"},{name:"Weekend Pass",price:6999,desc:"Both days"},{name:"VIP Weekend",price:14999,desc:"VIP both days"}]},
+  {id:'ev5',title:"IPL: MI vs CSK",category:"sports",date:"Wed, 18 Mar 2026",time:"7:30 PM",venue:"Wankhede Stadium, Mumbai",price:999,seats:28,img:"https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800&q=80",description:"The greatest T20 rivalry.",tickets:[{name:"East Stand",price:999,desc:"General seating"},{name:"North Stand",price:2499,desc:"Covered seating"},{name:"Corporate Box",price:9999,desc:"Premium box"}]},
+  {id:'ev6',title:"Google I/O Extended India",category:"tech",date:"Thu, 26 Mar 2026",time:"10:00 AM",venue:"Bangalore International Centre",price:499,seats:210,img:"https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",description:"India's biggest developer event.",tickets:[{name:"General",price:499,desc:"Full access"},{name:"Workshop Pass",price:1499,desc:"Sessions + workshops"}]}
+];
+
+var currentFilter = 'all';
+var allEvents = EVENTS;
+
+// ── RENDER ────────────────────────────────────────────────────
+function renderEvents(){
+  var grid = document.getElementById('eventsGrid');
+  if(!grid) return;
+  var search = (document.getElementById('searchInput').value||'').toLowerCase();
+  var evs = allEvents.filter(function(e){
+    var catOk = currentFilter==='all' || e.category===currentFilter;
+    var qOk = e.title.toLowerCase().indexOf(search)>-1 || e.venue.toLowerCase().indexOf(search)>-1;
+    return catOk && qOk;
+  });
+  if(!evs.length){ grid.innerHTML='<div style="color:var(--muted);padding:2rem;text-align:center">No events found.</div>'; return; }
+  grid.innerHTML = evs.map(function(e,i){
+    return '<a class="event-card'+(e.featured&&i===0?' featured':'')+'" href="event-detail.html?id='+e.id+'" style="animation:fadeIn .5s '+(i*.07)+'s both">'+
+      '<div class="card-img"><img src="'+e.img+'" alt="'+e.title+'" loading="lazy"/><div class="card-img-overlay"></div><span class="card-category">'+e.category+'</span></div>'+
+      '<div class="card-body">'+
+        '<div class="card-date">&#128197; '+e.date+' &middot; '+e.time+'</div>'+
+        '<div class="card-title">'+e.title+'</div>'+
+        '<div class="card-venue">&#128205; '+e.venue+'</div>'+
+        '<div class="card-footer">'+
+          '<div class="card-price">&#8377;'+e.price.toLocaleString()+' <span>onwards</span></div>'+
+          '<div class="card-seats"><span class="seats-dot'+(e.seats<100?' low':'')+'"></span>'+e.seats+' seats left</div>'+
+        '</div>'+
+      '</div></a>';
+  }).join('');
+}
 
 function setFilter(cat, btn){
   currentFilter = cat;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
+  document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
   renderEvents();
 }
 
-function renderEvents(){
-  const grid   = document.getElementById('eventsGrid');
-  const search = (document.getElementById('searchInput').value||'').toLowerCase();
-  const evs    = (window._allEvents||[]).filter(e=>{
-    const matchCat = currentFilter==='all' || e.category===currentFilter;
-    const matchQ   = e.title.toLowerCase().includes(search)||e.venue.toLowerCase().includes(search);
-    return matchCat && matchQ;
-  });
-  if(!evs.length){
-    grid.innerHTML = `<div style="color:var(--muted);padding:2rem">No events found.</div>`;
-    return;
-  }
-  grid.innerHTML = evs.map((e,i)=>`
-    <a class="event-card${e.featured&&i===0?' featured':''}" href="event-detail.html?id=${e.id}" style="animation:fadeIn .5s ${i*.07}s both">
-      <div class="card-img">
-        <img src="${e.img}" alt="${e.title}" loading="lazy"/>
-        <div class="card-img-overlay"></div>
-        <span class="card-category">${e.category}</span>
-      </div>
-      <div class="card-body">
-        <div class="card-date">📅 ${e.date} · ${e.time}</div>
-        <div class="card-title">${e.title}</div>
-        <div class="card-venue">📍 ${e.venue}</div>
-        <div class="card-footer">
-          <div class="card-price">₹${e.price.toLocaleString()} <span>onwards</span></div>
-          <div class="card-seats"><span class="seats-dot${e.seats<100?' low':''}"></span>${e.seats} seats left</div>
-        </div>
-      </div>
-    </a>
-  `).join('');
+function browseEvents(){
+  renderEvents();
+  var s = document.getElementById('events');
+  if(s) s.scrollIntoView({behavior:'smooth'});
 }
 
-// Poll until firebase loads events
-const pollRender = setInterval(()=>{
-  if((window._allEvents||[]).length){ renderEvents(); clearInterval(pollRender); }
-},300);
+// ── AUTH HELPERS ──────────────────────────────────────────────
+function openAuthModal(){ document.getElementById('authModalOverlay').classList.add('open'); }
+function closeAuthModal(){ document.getElementById('authModalOverlay').classList.remove('open'); }
+function showToast(msg){ var t=document.getElementById('toast'); t.innerHTML=msg; t.classList.add('show'); setTimeout(function(){t.classList.remove('show');},3000); }
 
-function openAuthModal(){ document.getElementById('authModalOverlay').classList.add('open') }
-function closeAuthModal(){ document.getElementById('authModalOverlay').classList.remove('open') }
+// Stub until Firebase loads
+window.signInWithGoogle = function(){ openAuthModal(); };
 
-function showToast(msg){
-  const t = document.getElementById('toast');
-  t.innerHTML = msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),3000);
+// ── FIREBASE INIT (non-blocking) ──────────────────────────────
+(async function(){
+  try {
+    var m1 = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js");
+    var m2 = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+    var m3 = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+
+    var app = m1.initializeApp({apiKey:"AIzaSyCtCp5SwWLwnD-rtpllvhc-RmbxUhvAy9c",authDomain:"festora-6bac8.firebaseapp.com",projectId:"festora-6bac8",storageBucket:"festora-6bac8.firebasestorage.app",messagingSenderId:"909677087964",appId:"1:909677087964:web:1f9e5a1df7b546d84a7819"});
+    var auth = m2.getAuth(app);
+    var db = m3.getFirestore(app);
+    var provider = new m2.GoogleAuthProvider();
+
+    window.signInWithGoogle = async function(){
+      var e=document.getElementById('authError'); e.style.display='none';
+      try{ await m2.signInWithPopup(auth,provider); }
+      catch(err){ e.textContent=err.message; e.style.display='block'; }
+    };
+    window._signOut = async function(){ await m2.signOut(auth); showToast('Signed out'); };
+
+    m2.onAuthStateChanged(auth, async function(user){
+      window._currentUser = user;
+      var el = document.getElementById('navUser');
+      if(user){
+        el.innerHTML='<span class="nav-name">'+user.displayName.split(' ')[0]+'</span><img class="nav-avatar" src="'+user.photoURL+'"/><button class="nav-signout" onclick="window._signOut()">Sign Out</button>';
+        closeAuthModal();
+        showToast('Welcome, '+user.displayName.split(' ')[0]+'!');
+        var ref=m3.doc(db,'users',user.uid); var snap=await m3.getDoc(ref);
+        if(!snap.exists()) await m3.setDoc(ref,{uid:user.uid,name:user.displayName,email:user.email,photo:user.photoURL,createdAt:new Date().toISOString()});
+      } else {
+        el.innerHTML='<button class="nav-cta" onclick="openAuthModal()">Sign In with Google</button>';
+      }
+    });
+
+    // Load Firestore events
+    try {
+      var snap=await m3.getDocs(m3.collection(db,'events'));
+      if(snap.docs.length>0){ allEvents=snap.docs.map(function(d){return d.data();}); renderEvents(); }
+      else { for(var ev of EVENTS){ var r=m3.doc(db,'events',ev.id); var s2=await m3.getDoc(r); if(!s2.exists()) await m3.setDoc(r,ev); } }
+    } catch(e){ console.log('Firestore:', e); }
+  } catch(e){ console.log('Firebase error:', e); }
+})();
+
+// ── CHAT ──────────────────────────────────────────────────────
+function toggleChat(){
+  var b=document.getElementById('chatBox'); b.classList.toggle('open');
+  if(b.classList.contains('open')) document.getElementById('chatBadge').style.display='none';
+}
+function sendQuick(msg){ document.getElementById('quickBtns').style.display='none'; addChatMsg(msg,'user'); callAI(msg); }
+function sendChat(){ var i=document.getElementById('chatInput'),msg=i.value.trim(); if(!msg)return; i.value=''; document.getElementById('quickBtns').style.display='none'; addChatMsg(msg,'user'); callAI(msg); }
+function addChatMsg(text,role){ var el=document.createElement('div'); el.className='chat-msg '+role; el.innerHTML=text; var m=document.getElementById('chatMessages'); m.appendChild(el); m.scrollTop=m.scrollHeight; }
+function showTyping(){ var el=document.createElement('div'); el.className='chat-msg bot'; el.id='typingDots'; el.innerHTML='<div class="typing-dots"><span></span><span></span><span></span></div>'; var m=document.getElementById('chatMessages'); m.appendChild(el); m.scrollTop=m.scrollHeight; }
+function removeTyping(){ var t=document.getElementById('typingDots'); if(t)t.remove(); }
+async function callAI(msg){
+  showTyping();
+  try {
+    var r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:300,system:"You are Festora Assistant for India's top event booking site. Events: Arijit Singh Live Rs1499 DY Patil Stadium Mumbai, Sunburn Arena Rs2499 MMRDA Grounds Mumbai, Zakir Khan Comedy Rs799 JLN Stadium Delhi, Lollapalooza Rs3999 Mahalaxmi Racecourse Mumbai, IPL MI vs CSK Rs999 Wankhede Stadium Mumbai, Google IO Rs499 Bangalore. Payments via UPI Card NetBanking. E-pass with QR sent by email after booking. Be friendly concise use emojis max 80 words.",messages:[{role:'user',content:msg}]})});
+    var d=await r.json(); removeTyping();
+    addChatMsg(((d.content&&d.content[0]&&d.content[0].text)||'Sorry, try again!').replace(/\n/g,'<br>'),'bot');
+  } catch(e){ removeTyping(); addChatMsg('Sorry, connection issue. Please try again!','bot'); }
 }
 
-// @keyframes for cards
-const st = document.createElement('style');
-st.textContent = `@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}`;
-document.head.appendChild(st);
+// ── START: render events immediately ─────────────────────────
+// Suppress Firebase fetch errors in preview environments
+window.addEventListener('unhandledrejection', function(e){ 
+  if(e.reason && e.reason.message && e.reason.message.indexOf('firebase')>-1) e.preventDefault(); 
+});
+renderEvents();
 </script>
 </body>
 </html>
