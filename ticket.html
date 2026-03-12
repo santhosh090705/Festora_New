@@ -276,11 +276,51 @@ for(let r=0;r<sz;r++){cells[r]=[];for(let c=0;c<sz;c++)cells[r][c]=Math.random()
 for(let i=0;i<bid.length&&i<50;i++) cells[8+Math.floor(i/sz)%8][i%sz]=bid.charCodeAt(i)%2;
 svg.innerHTML=cells.map((row,r)=>row.map((v,c)=>v?`<rect x="${c*cell}" y="${r*cell}" width="${cell}" height="${cell}" fill="#111"/>`:'').join('')).join('');
 
+// ── EMAILJS ──────────────────────────────────────────────────
+const EMAILJS_SERVICE_ID  = 'service_pgdjtyb';
+const EMAILJS_TEMPLATE_ID = 'template_jqrnitk';
+const EMAILJS_PUBLIC_KEY  = 'm2wApuRV1ccrrcX7D';
+
+// Init EmailJS
+(function(){
+  const s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+  s.onload = () => emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  document.head.appendChild(s);
+})();
+
 function openEmailModal(){ document.getElementById('emailModal').classList.add('open'); }
 function closeEmailModal(){ document.getElementById('emailModal').classList.remove('open'); }
-function sendEmail(){
-  document.getElementById('emailFormArea').style.display='none';
-  document.getElementById('sentConfirm').style.display='block';
+
+async function sendEmail(){
+  const sendBtn = document.querySelector('.send-btn');
+  sendBtn.textContent = 'Sending… ✈️';
+  sendBtn.disabled = true;
+
+  const templateParams = {
+    to_email:       aemail,
+    attendee_name:  aname,
+    event_name:     ev,
+    event_date:     b.date  || '–',
+    event_time:     b.time  || '–',
+    event_venue:    b.venue || '–',
+    ticket_type:    ttype,
+    qty:            b.qty   || 1,
+    total:          (b.total||0).toLocaleString(),
+    booking_id:     bid
+  };
+
+  try {
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+    // Success
+    document.getElementById('emailFormArea').style.display = 'none';
+    document.getElementById('sentConfirm').style.display   = 'block';
+  } catch(err) {
+    console.error('EmailJS error:', err);
+    sendBtn.textContent = '❌ Failed — Try Again';
+    sendBtn.disabled = false;
+    alert('Email sending failed: ' + (err.text || err.message || 'Unknown error'));
+  }
 }
 </script>
 </body>
