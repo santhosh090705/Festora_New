@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My Tickets – Festora</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0a0f;--surface:#13131a;--card:#1a1a24;--border:#2a2a3a;--accent:#ff5c35;--accent2:#ffb347;--text:#f0ede8;--muted:#7a7a8a}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.4}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);background:rgba(10,10,15,.85);border-bottom:1px solid var(--border)}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.1em;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+.nav-user-pill{display:flex;align-items:center;gap:.6rem;font-size:.85rem}
+.nav-avatar{width:30px;height:30px;border-radius:50%;border:2px solid var(--accent)}
+.nav-signout{background:none;border:1px solid var(--border);color:var(--muted);padding:.3rem .8rem;border-radius:2rem;font-size:.78rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.nav-signout:hover{border-color:var(--accent);color:var(--accent)}
+
+.main{max-width:800px;margin:0 auto;padding:6rem 2rem 4rem}
+.page-header{margin-bottom:2.5rem}
+.page-title{font-family:'DM Serif Display',serif;font-size:2.5rem;margin-bottom:.3rem}
+.page-sub{color:var(--muted)}
+
+/* USER CARD */
+.user-card{background:var(--card);border:1px solid var(--border);border-radius:1rem;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem;margin-bottom:2rem}
+.user-card img{width:48px;height:48px;border-radius:50%;border:2px solid var(--accent)}
+.user-card-name{font-weight:600}
+.user-card-email{font-size:.82rem;color:var(--muted)}
+
+/* SIGNIN WALL */
+.signin-wall{text-align:center;padding:5rem 2rem;background:var(--card);border:1px solid var(--border);border-radius:1.2rem}
+.sw-icon{font-size:3rem;margin-bottom:1rem}
+.sw-title{font-family:'DM Serif Display',serif;font-size:1.6rem;margin-bottom:.5rem}
+.sw-sub{color:var(--muted);margin-bottom:1.8rem;font-size:.9rem}
+.google-btn{background:#fff;color:#1a1a1a;border:none;padding:.9rem 1.8rem;border-radius:.8rem;font-size:.95rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:.8rem;transition:all .2s;font-family:'DM Sans',sans-serif}
+.google-btn:hover{background:#f5f5f5;transform:translateY(-2px)}
+.google-btn svg{width:20px;height:20px}
+
+/* LOADING */
+.loading{display:flex;align-items:center;justify-content:center;gap:.8rem;padding:3rem;color:var(--muted)}
+.spinner{width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* EMPTY */
+.empty-state{text-align:center;padding:4rem 2rem;background:var(--card);border:1px solid var(--border);border-radius:1.2rem}
+.empty-icon{font-size:3.5rem;margin-bottom:1rem}
+.empty-title{font-family:'DM Serif Display',serif;font-size:1.5rem;margin-bottom:.5rem}
+.empty-sub{color:var(--muted);margin-bottom:1.5rem}
+.btn-browse{background:var(--accent);color:#fff;padding:.7rem 1.5rem;border-radius:2rem;text-decoration:none;font-weight:600;font-size:.9rem}
+
+/* TICKET LIST */
+.ticket-list{display:flex;flex-direction:column;gap:1.2rem}
+.ticket-item{background:var(--card);border:1px solid var(--border);border-radius:1.2rem;overflow:hidden;display:flex;transition:border-color .2s}
+.ticket-item:hover{border-color:var(--accent)}
+.tl-accent{width:5px;background:linear-gradient(to bottom,var(--accent),var(--accent2));flex-shrink:0}
+.tl-body{flex:1;padding:1.3rem 1.5rem}
+.tl-event{font-family:'DM Serif Display',serif;font-size:1.2rem;margin-bottom:.4rem}
+.tl-meta{display:flex;flex-wrap:wrap;gap:.8rem 1.5rem;font-size:.82rem;color:var(--muted);margin-bottom:.8rem}
+.tl-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.tl-id{font-family:'Bebas Neue',sans-serif;font-size:.9rem;color:var(--muted);letter-spacing:.06em}
+.tl-price{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--accent)}
+.tl-badge{background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.2);color:#4ade80;padding:.2rem .7rem;border-radius:2rem;font-size:.72rem;font-weight:600}
+.view-btn{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:.4rem .9rem;border-radius:.5rem;font-size:.8rem;text-decoration:none;transition:all .2s;cursor:pointer}
+.view-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* AUTH MODAL */
+.auth-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem}
+.auth-modal-overlay.open{display:flex}
+.auth-modal{background:var(--card);border:1px solid var(--border);border-radius:1.5rem;width:100%;max-width:400px;padding:2.5rem;text-align:center;animation:popIn .3s ease;position:relative}
+@keyframes popIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+.auth-logo{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:.1em;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+.auth-title{font-family:'DM Serif Display',serif;font-size:1.6rem;margin-bottom:.4rem}
+.auth-sub{color:var(--muted);font-size:.85rem;margin-bottom:1.8rem;line-height:1.6}
+.auth-error{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#f87171;padding:.7rem;border-radius:.5rem;font-size:.82rem;margin-bottom:1rem;display:none}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Festora</a>
+  <div class="nav-user-pill" id="navUser"></div>
+</nav>
+
+<div class="main">
+  <div class="page-header">
+    <div class="page-title">My Tickets</div>
+    <div class="page-sub">All your booked event passes</div>
+  </div>
+  <div id="content">
+    <div class="loading"><div class="spinner"></div> Loading…</div>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="auth-modal-overlay" id="authModalOverlay">
+  <div class="auth-modal">
+    <div class="auth-logo">Festora</div>
+    <div class="auth-title">Sign In to View Tickets</div>
+    <div class="auth-sub">Sign in with Google to access your booking history and e-passes.</div>
+    <div class="auth-error" id="authError"></div>
+    <button class="google-btn" onclick="signInWithGoogle()" style="margin:0 auto">
+      <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      Continue with Google
+    </button>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, collection, getDocs, query, orderBy }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// ─── REPLACE WITH YOUR FIREBASE CONFIG ───────────────────────
+const firebaseConfig = {
+  apiKey:            "AIzaSyCtCp5SwWLwnD-rtpllvhc-RmbxUhvAy9c",
+  authDomain:        "festora-6bac8.firebaseapp.com",
+  projectId:         "festora-6bac8",
+  storageBucket:     "festora-6bac8.firebasestorage.app",
+  messagingSenderId: "909677087964",
+  appId:             "1:909677087964:web:1f9e5a1df7b546d84a7819",
+  measurementId:     "G-5E7VZ78YM4"
+};;
+// ─────────────────────────────────────────────────────────────
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
+const provider = new GoogleAuthProvider();
+
+window.signInWithGoogle = async () => {
+  document.getElementById('authError').style.display='none';
+  try { await signInWithPopup(auth, provider); }
+  catch(e){ document.getElementById('authError').textContent=e.message; document.getElementById('authError').style.display='block'; }
+};
+
+onAuthStateChanged(auth, async user => {
+  const content = document.getElementById('content');
+
+  if(!user){
+    // Show sign-in wall
+    document.getElementById('navUser').innerHTML = '';
+    document.getElementById('authModalOverlay').classList.add('open');
+    content.innerHTML = `<div class="signin-wall">
+      <div class="sw-icon">🔒</div>
+      <div class="sw-title">Sign In Required</div>
+      <div class="sw-sub">Sign in with your Google account to view your tickets.</div>
+      <button class="google-btn" onclick="signInWithGoogle()">
+        <svg viewBox="0 0 48 48" width="20" height="20"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        Continue with Google
+      </button>
+    </div>`;
+    return;
+  }
+
+  // User signed in
+  document.getElementById('authModalOverlay').classList.remove('open');
+  document.getElementById('navUser').innerHTML = `
+    <img class="nav-avatar" src="${user.photoURL}" alt=""/>
+    <span style="font-size:.85rem;font-weight:500">${user.displayName.split(' ')[0]}</span>
+    <button class="nav-signout" onclick="(async()=>{const {signOut,getAuth}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js');await signOut(getAuth());})()">Sign Out</button>`;
+
+  content.innerHTML = `
+    <div class="user-card">
+      <img src="${user.photoURL}" alt="${user.displayName}"/>
+      <div><div class="user-card-name">${user.displayName}</div><div class="user-card-email">${user.email}</div></div>
+    </div>
+    <div class="loading" id="ticketsLoading"><div class="spinner"></div> Loading your tickets…</div>
+    <div id="ticketListArea"></div>`;
+
+  // Load from Firestore user sub-collection
+  let bookings = [];
+  try {
+    const snap = await getDocs(collection(db, 'users', user.uid, 'bookings'));
+    bookings = snap.docs.map(d => d.data()).sort((a,b)=> new Date(b.bookedAt||0) - new Date(a.bookedAt||0));
+  } catch(e) {
+    console.warn('Firestore load failed, using localStorage:', e.message);
+  }
+
+  // Merge with localStorage (fallback / offline bookings)
+  const local = JSON.parse(localStorage.getItem('festora_bookings')||'[]');
+  const fsIds = new Set(bookings.map(b=>b.bookingId||b.id));
+  local.forEach(b=>{ if(!fsIds.has(b.bookingId||b.id)) bookings.push(b); });
+
+  document.getElementById('ticketsLoading').style.display = 'none';
+  const area = document.getElementById('ticketListArea');
+
+  if(!bookings.length){
+    area.innerHTML = `<div class="empty-state">
+      <div class="empty-icon">🎟</div>
+      <div class="empty-title">No tickets yet</div>
+      <div class="empty-sub">Book your first event and your passes will appear here.</div>
+      <a href="index.html" class="btn-browse">Browse Events →</a>
+    </div>`;
+    return;
+  }
+
+  area.innerHTML = `<div class="ticket-list">${bookings.map(b=>{
+    const evName = b.eventName||b.event||'–';
+    const ttype  = b.ticketType||b.ticket||'–';
+    const bid    = b.bookingId||b.id||'–';
+    const total  = b.total||0;
+    return `<div class="ticket-item">
+      <div class="tl-accent"></div>
+      <div class="tl-body">
+        <div class="tl-event">${evName}</div>
+        <div class="tl-meta">
+          <span>📅 ${b.date||'–'}</span>
+          <span>🕐 ${b.time||'–'}</span>
+          <span>📍 ${(b.venue||'').split(',')[0]||'–'}</span>
+          <span>🎟 ${ttype} × ${b.qty||1}</span>
+        </div>
+        <div class="tl-footer">
+          <div style="display:flex;align-items:center;gap:.8rem">
+            <span class="tl-id">#${bid.slice(-8).toUpperCase()}</span>
+            <span class="tl-badge">✓ Confirmed</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:.8rem">
+            <span class="tl-price">₹${total.toLocaleString()}</span>
+            <button class="view-btn" onclick="viewTicket(${JSON.stringify(b).replace(/"/g,'&quot;')})">View Pass →</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('')}</div>`;
+});
+
+window.viewTicket = (b) => {
+  localStorage.setItem('festora_last_booking', JSON.stringify(b));
+  window.location.href = 'ticket.html';
+};
+</script>
+</body>
+</html>

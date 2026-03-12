@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Your Ticket – Festora</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0a0f;--surface:#13131a;--card:#1a1a24;--border:#2a2a3a;--accent:#ff5c35;--accent2:#ffb347;--text:#f0ede8;--muted:#7a7a8a}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.4}
+
+nav{padding:1.2rem 2.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.1em;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+.nav-user-pill{display:flex;align-items:center;gap:.6rem;font-size:.85rem}
+.nav-avatar{width:30px;height:30px;border-radius:50%;border:2px solid var(--accent)}
+
+.success-header{text-align:center;padding:3rem 2rem 2rem;animation:fadeDown .6s ease}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:none}}
+.success-icon{width:70px;height:70px;background:linear-gradient(135deg,#4ade80,#22c55e);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 1.2rem;animation:pop .5s .2s both;box-shadow:0 0 40px rgba(74,222,128,.3)}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+.success-title{font-family:'DM Serif Display',serif;font-size:2.2rem;margin-bottom:.5rem}
+.success-sub{color:var(--muted);font-size:.95rem}
+
+.email-notice{background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);border-radius:.8rem;padding:.9rem 1.4rem;display:flex;align-items:center;gap:.8rem;max-width:520px;margin:0 auto 2.5rem;font-size:.85rem;animation:fadeIn .5s .4s both}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.email-notice-icon{font-size:1.4rem}
+.email-notice-text strong{color:#4ade80}
+
+.ticket-wrapper{max-width:520px;margin:0 auto;padding:0 1.5rem 5rem;animation:slideUp .6s .2s both}
+@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+
+.ticket{background:var(--card);border-radius:1.5rem;overflow:hidden;position:relative;box-shadow:0 25px 60px rgba(0,0,0,.5)}
+.ticket-top{background:linear-gradient(135deg,var(--accent),var(--accent2));padding:1.8rem 2rem;position:relative;overflow:hidden}
+.ticket-top::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:rgba(255,255,255,.1);border-radius:50%}
+.ticket-top::after{content:'';position:absolute;bottom:-20px;left:40px;width:80px;height:80px;background:rgba(255,255,255,.08);border-radius:50%}
+.ticket-brand{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.15em;color:rgba(255,255,255,.7);margin-bottom:.3rem}
+.ticket-event{font-family:'DM Serif Display',serif;font-size:1.8rem;color:#fff;line-height:1.2;position:relative;z-index:1}
+.ticket-type-badge{display:inline-block;background:rgba(255,255,255,.2);color:#fff;padding:.2rem .75rem;border-radius:2rem;font-size:.75rem;font-weight:600;margin-top:.5rem;position:relative;z-index:1}
+
+.ticket-mid{padding:1.5rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;border-bottom:1px dashed var(--border)}
+.ticket-field{display:flex;flex-direction:column;gap:.2rem}
+.tf-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.tf-val{font-weight:600;font-size:.9rem}
+
+.ticket-bottom{padding:1.5rem 2rem;display:flex;align-items:center;gap:1.5rem}
+.barcode{height:60px;background:#fff;border-radius:.4rem;overflow:hidden;display:flex;align-items:center;padding:6px;flex:1}
+.barcode-inner{display:flex;gap:1.5px;align-items:center;height:100%;width:100%}
+.bar{background:#111;border-radius:1px}
+.ticket-id-section{text-align:right}
+.ticket-id-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.ticket-id{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.05em;color:var(--accent)}
+
+.ticket-notch{display:flex;align-items:center}
+.notch{width:24px;height:24px;background:var(--bg);border-radius:50%;flex-shrink:0}
+.notch-line{flex:1;border-top:2px dashed var(--border)}
+
+.user-info-strip{background:rgba(255,92,53,.06);border:1px solid rgba(255,92,53,.15);border-radius:.8rem;padding:.9rem 1.2rem;display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem}
+.user-info-strip img{width:36px;height:36px;border-radius:50%;border:2px solid var(--accent)}
+.user-info-name{font-weight:600;font-size:.9rem}
+.user-info-email{font-size:.78rem;color:var(--muted)}
+
+.qr-section{background:var(--surface);border-radius:1rem;padding:1.5rem;margin-top:1.5rem;display:flex;flex-direction:column;align-items:center;gap:.8rem}
+.qr-box{background:#fff;padding:12px;border-radius:.6rem;width:140px;height:140px;display:flex;align-items:center;justify-content:center}
+.qr-label{font-size:.78rem;color:var(--muted);text-align:center}
+.qr-label strong{display:block;color:var(--text);font-size:.85rem;margin-bottom:.2rem}
+
+.ticket-actions{display:flex;gap:.75rem;margin-top:1.5rem}
+.action-btn{flex:1;padding:.85rem;border-radius:.8rem;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;border:none;display:flex;align-items:center;justify-content:center;gap:.4rem}
+.action-btn.primary{background:var(--accent);color:#fff}
+.action-btn.primary:hover{background:#ff7a5a;transform:translateY(-2px)}
+.action-btn.secondary{background:var(--surface);border:1px solid var(--border);color:var(--text)}
+.action-btn.secondary:hover{border-color:var(--accent);color:var(--accent)}
+
+/* EMAIL MODAL */
+.email-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:1000;display:none;align-items:center;justify-content:center;padding:1rem}
+.email-modal.open{display:flex}
+.email-box{background:var(--card);border:1px solid var(--border);border-radius:1.2rem;width:100%;max-width:480px;padding:2rem;animation:slideUp .3s ease}
+.em-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
+.em-title{font-family:'DM Serif Display',serif;font-size:1.3rem}
+.em-close{background:var(--surface);border:1px solid var(--border);color:var(--text);width:30px;height:30px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.em-preview{background:var(--surface);border-radius:.8rem;padding:1.2rem;margin-bottom:1.2rem;font-size:.85rem}
+.em-row{display:flex;gap:.5rem;padding:.25rem 0;border-bottom:1px solid var(--border)}
+.em-key{color:var(--muted);min-width:55px;font-size:.8rem}
+.em-body{margin-top:.8rem;padding:.8rem;background:var(--card);border-radius:.6rem;font-size:.82rem;color:rgba(240,237,232,.8);line-height:1.7}
+.send-btn{width:100%;background:linear-gradient(135deg,var(--accent),#ff7a5a);color:#fff;border:none;padding:.9rem;border-radius:.7rem;font-size:.95rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.send-btn:hover{transform:translateY(-2px)}
+.sent-confirm{display:none;text-align:center;padding:1rem}
+.sent-icon{font-size:3rem;margin-bottom:.8rem}
+
+@media print{
+  nav,.ticket-actions,.qr-section,.email-modal,.success-header,.email-notice{display:none!important}
+  .ticket-wrapper{padding:0}
+  body{background:#fff;color:#000}
+  .ticket{box-shadow:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Festora</a>
+  <div class="nav-user-pill" id="navUser"></div>
+</nav>
+
+<div class="success-header">
+  <div class="success-icon">✓</div>
+  <div class="success-title">Booking Confirmed!</div>
+  <div class="success-sub">Your e-pass is ready</div>
+</div>
+
+<div class="email-notice">
+  <div class="email-notice-icon">📧</div>
+  <div class="email-notice-text">Ticket sent to <strong id="emailDisplay">your email</strong></div>
+</div>
+
+<div class="ticket-wrapper">
+  <!-- Attendee strip -->
+  <div class="user-info-strip" id="userInfoStrip" style="display:none">
+    <img id="userAvatar" src="" alt=""/>
+    <div><div class="user-info-name" id="userName"></div><div class="user-info-email" id="userEmail"></div></div>
+  </div>
+
+  <div class="ticket">
+    <div class="ticket-top">
+      <div class="ticket-brand">FESTORA</div>
+      <div class="ticket-event" id="tktEvent">–</div>
+      <div class="ticket-type-badge" id="tktType">General</div>
+    </div>
+    <div class="ticket-notch"><div class="notch"></div><div class="notch-line"></div><div class="notch"></div></div>
+    <div class="ticket-mid">
+      <div class="ticket-field"><span class="tf-label">Date</span><span class="tf-val" id="tktDate">–</span></div>
+      <div class="ticket-field"><span class="tf-label">Time</span><span class="tf-val" id="tktTime">–</span></div>
+      <div class="ticket-field"><span class="tf-label">Venue</span><span class="tf-val" id="tktVenue">–</span></div>
+      <div class="ticket-field"><span class="tf-label">Qty</span><span class="tf-val" id="tktQty">–</span></div>
+      <div class="ticket-field"><span class="tf-label">Attendee</span><span class="tf-val" id="tktName">–</span></div>
+      <div class="ticket-field"><span class="tf-label">Total Paid</span><span class="tf-val" id="tktTotal" style="color:var(--accent)">–</span></div>
+    </div>
+    <div class="ticket-notch"><div class="notch"></div><div class="notch-line"></div><div class="notch"></div></div>
+    <div class="ticket-bottom">
+      <div class="barcode"><div class="barcode-inner" id="barcodeInner"></div></div>
+      <div class="ticket-id-section">
+        <div class="ticket-id-label">Booking ID</div>
+        <div class="ticket-id" id="tktId">–</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qr-section">
+    <div class="qr-box"><svg viewBox="0 0 100 100" width="116" height="116" id="qrSvg"></svg></div>
+    <div class="qr-label"><strong>Show this QR at entry</strong>Valid for one-time use only</div>
+  </div>
+
+  <div class="ticket-actions">
+    <button class="action-btn primary" onclick="openEmailModal()">📧 Resend to Email</button>
+    <button class="action-btn secondary" onclick="window.print()">🖨 Download / Print</button>
+  </div>
+  <div style="text-align:center;margin-top:1.2rem;display:flex;gap:1rem;justify-content:center">
+    <a href="my-tickets.html" style="color:var(--accent);font-size:.85rem;text-decoration:none;font-weight:500">📋 My Tickets</a>
+    <a href="index.html" style="color:var(--muted);font-size:.85rem;text-decoration:none">← Browse More Events</a>
+  </div>
+</div>
+
+<!-- EMAIL MODAL -->
+<div class="email-modal" id="emailModal">
+  <div class="email-box">
+    <div class="em-header">
+      <div class="em-title">📧 Send Ticket to Email</div>
+      <button class="em-close" onclick="closeEmailModal()">✕</button>
+    </div>
+    <div id="emailFormArea">
+      <div class="em-preview">
+        <div class="em-row"><span class="em-key">To:</span><span id="emTo">–</span></div>
+        <div class="em-row"><span class="em-key">Subject:</span><span id="emSubject">–</span></div>
+        <div class="em-body" id="emBody">–</div>
+      </div>
+      <button class="send-btn" onclick="sendEmail()">Send Ticket Now ✈️</button>
+    </div>
+    <div class="sent-confirm" id="sentConfirm">
+      <div class="sent-icon">🎉</div>
+      <div style="font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:.4rem">Ticket Sent!</div>
+      <div style="color:var(--muted);font-size:.85rem" id="sentToText">–</div>
+      <button onclick="closeEmailModal()" style="margin-top:1rem;background:var(--accent);color:#fff;border:none;padding:.6rem 1.5rem;border-radius:2rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600">Done ✓</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+// ─── REPLACE WITH YOUR FIREBASE CONFIG ───────────────────────
+const firebaseConfig = {
+  apiKey:            "AIzaSyCtCp5SwWLwnD-rtpllvhc-RmbxUhvAy9c",
+  authDomain:        "festora-6bac8.firebaseapp.com",
+  projectId:         "festora-6bac8",
+  storageBucket:     "festora-6bac8.firebasestorage.app",
+  messagingSenderId: "909677087964",
+  appId:             "1:909677087964:web:1f9e5a1df7b546d84a7819",
+  measurementId:     "G-5E7VZ78YM4"
+};;
+// ─────────────────────────────────────────────────────────────
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, user => {
+  if(user){
+    document.getElementById('navUser').innerHTML = `
+      <img class="nav-avatar" src="${user.photoURL}" alt=""/>
+      <span style="font-size:.85rem;font-weight:500">${user.displayName.split(' ')[0]}</span>`;
+    // Show user strip on ticket
+    document.getElementById('userInfoStrip').style.display = 'flex';
+    document.getElementById('userAvatar').src  = user.photoURL;
+    document.getElementById('userName').textContent  = user.displayName;
+    document.getElementById('userEmail').textContent = user.email;
+  }
+});
+</script>
+
+<script>
+const b = JSON.parse(localStorage.getItem('festora_last_booking')||'null') || {
+  bookingId:'FST'+Date.now(), eventName:"Arijit Singh Live", date:"Sat, 22 Mar 2026",
+  time:"7:00 PM", venue:"DY Patil Stadium, Mumbai", ticketType:"General",
+  qty:1, total:1529, attendeeName:"Santhosh Kumar", attendeeEmail:"santhosh@example.com",
+  attendeePhone:"+91 98765 43210"
+};
+
+// Normalize field names (support both old and new format)
+const ev    = b.eventName  || b.event  || '–';
+const ttype = b.ticketType || b.ticket || '–';
+const aname = b.attendeeName  || b.name  || '–';
+const aemail= b.attendeeEmail || b.email || '–';
+const bid   = b.bookingId  || b.id || ('FST'+Date.now());
+
+document.getElementById('emailDisplay').textContent = aemail;
+document.getElementById('tktEvent').textContent = ev;
+document.getElementById('tktType').textContent  = ttype;
+document.getElementById('tktDate').textContent  = b.date || '–';
+document.getElementById('tktTime').textContent  = b.time || '–';
+document.getElementById('tktVenue').textContent = (b.venue||'').split(',')[0];
+document.getElementById('tktQty').textContent   = (b.qty||1) + ' ticket' + ((b.qty||1)>1?'s':'');
+document.getElementById('tktName').textContent  = aname;
+document.getElementById('tktTotal').textContent = '₹' + (b.total||0).toLocaleString();
+document.getElementById('tktId').textContent    = bid.slice(-8).toUpperCase();
+
+// Email modal
+document.getElementById('emTo').textContent      = aemail;
+document.getElementById('emSubject').textContent = `🎟 Your Festora Ticket – ${ev}`;
+document.getElementById('emBody').innerHTML       = `Hi ${aname.split(' ')[0]},<br><br>Your booking is <strong>confirmed</strong>! 🎉<br><br>
+  <strong>${ev}</strong><br>
+  📅 ${b.date} · ${b.time}<br>
+  📍 ${b.venue}<br>
+  🎟 ${ttype} × ${b.qty}<br>
+  💳 Paid: ₹${(b.total||0).toLocaleString()}<br>
+  🔑 Booking ID: ${bid}<br><br>
+  Present the QR code or Booking ID at venue entry.<br><br>
+  See you there! 🔥<br><strong>Team Festora</strong>`;
+document.getElementById('sentToText').textContent = `Sent to ${aemail}`;
+
+// Barcode
+const bc = document.getElementById('barcodeInner');
+const ws = [3,1,2,1,3,2,1,2,3,1,2,1,4,1,2,3,1,2,1,3,2,1,3,1,2,1,3,2,1,2];
+bc.innerHTML = ws.map((w,i)=>`<div class="bar" style="width:${w*2}px;height:${i%3===0?'85%':i%3===1?'100%':'70%'}"></div>`).join('');
+
+// QR
+const svg = document.getElementById('qrSvg');
+const sz=25, cell=4;
+let cells=[];
+for(let r=0;r<sz;r++){cells[r]=[];for(let c=0;c<sz;c++)cells[r][c]=Math.random()>.4?1:0;}
+[[0,0],[0,18],[18,0]].forEach(([r,c])=>{
+  for(let i=0;i<7;i++)for(let j=0;j<7;j++)
+    cells[r+i][c+j]=(i===0||i===6||j===0||j===6||(i>1&&i<5&&j>1&&j<5))?1:0;
+});
+for(let i=0;i<bid.length&&i<50;i++) cells[8+Math.floor(i/sz)%8][i%sz]=bid.charCodeAt(i)%2;
+svg.innerHTML=cells.map((row,r)=>row.map((v,c)=>v?`<rect x="${c*cell}" y="${r*cell}" width="${cell}" height="${cell}" fill="#111"/>`:'').join('')).join('');
+
+function openEmailModal(){ document.getElementById('emailModal').classList.add('open'); }
+function closeEmailModal(){ document.getElementById('emailModal').classList.remove('open'); }
+function sendEmail(){
+  document.getElementById('emailFormArea').style.display='none';
+  document.getElementById('sentConfirm').style.display='block';
+}
+</script>
+</body>
+</html>
