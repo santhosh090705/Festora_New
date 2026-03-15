@@ -2,7 +2,6 @@
 
 > A full-stack event booking platform built with Firebase, AWS Amplify, and EmailJS.
 
-![Festora](https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1200&q=80)
 
 ## 🌐 Live URL
 👉 **[https://main.d39qu7n6qbh7g3.amplifyapp.com](https://main.d39qu7n6qbh7g3.amplifyapp.com)**
