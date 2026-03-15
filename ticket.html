@@ -299,6 +299,7 @@ async function sendEmail(){
 
   const templateParams = {
     to_email:       aemail,
+    name:           aname,
     attendee_name:  aname,
     event_name:     ev,
     event_date:     b.date  || '–',
@@ -307,7 +308,8 @@ async function sendEmail(){
     ticket_type:    ttype,
     qty:            b.qty   || 1,
     total:          (b.total||0).toLocaleString(),
-    booking_id:     bid
+    booking_id:     bid,
+    email:          aemail
   };
 
   try {
