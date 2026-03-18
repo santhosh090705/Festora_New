@@ -1,0 +1,13 @@
+# Never commit secrets or temp files
+.env
+.env.local
+*.pem
+
+# Python helpers (used during dev only)
+read_docx.py
+read_docx_with_lib.py
+read_docx_to_file.py
+docx_output.txt
+
+# Node
+node_modules/

@@ -328,6 +328,14 @@ window.signInWithGoogle = function(){ openAuthModal(); };
 })();
 
 // ── CHAT ──────────────────────────────────────────────────────
+// ⚙️  Change these two values after you set up your EC2 proxy server.
+// They MUST match the values you put in your EC2's .env file.
+var QWEN_API_URL = 'http://13.233.143.228:3001';   // Festora EC2 Public IP
+var QWEN_API_KEY = 'festora-secret-key-change-this';   // Change this in both EC2 .env and here
+
+// Conversation history (maintained per page session)
+var chatHistory = [];
+
 function toggleChat(){
   var b=document.getElementById('chatBox'); b.classList.toggle('open');
   if(b.classList.contains('open')) document.getElementById('chatBadge').style.display='none';
@@ -339,11 +347,30 @@ function showTyping(){ var el=document.createElement('div'); el.className='chat-
 function removeTyping(){ var t=document.getElementById('typingDots'); if(t)t.remove(); }
 async function callAI(msg){
   showTyping();
+  // Add user message to history
+  chatHistory.push({ role: 'user', content: msg });
   try {
-    var r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:300,system:"You are Festora Assistant for India's top event booking site. Events: Arijit Singh Live Rs1499 DY Patil Stadium Mumbai, Sunburn Arena Rs2499 MMRDA Grounds Mumbai, Zakir Khan Comedy Rs799 JLN Stadium Delhi, Lollapalooza Rs3999 Mahalaxmi Racecourse Mumbai, IPL MI vs CSK Rs999 Wankhede Stadium Mumbai, Google IO Rs499 Bangalore. Payments via UPI Card NetBanking. E-pass with QR sent by email after booking. Be friendly concise use emojis max 80 words.",messages:[{role:'user',content:msg}]})});
-    var d=await r.json(); removeTyping();
-    addChatMsg(((d.content&&d.content[0]&&d.content[0].text)||'Sorry, try again!').replace(/\n/g,'<br>'),'bot');
-  } catch(e){ removeTyping(); addChatMsg('Sorry, connection issue. Please try again!','bot'); }
+    var r = await fetch(QWEN_API_URL + '/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': QWEN_API_KEY
+      },
+      body: JSON.stringify({
+        message: msg,
+        history: chatHistory.slice(0, -1) // send history excluding current msg
+      })
+    });
+    var d = await r.json();
+    removeTyping();
+    var reply = d.reply || 'Sorry, I could not get a response. Please try again!';
+    chatHistory.push({ role: 'assistant', content: reply });
+    addChatMsg(reply.replace(/\n/g,'<br>'), 'bot');
+  } catch(e){
+    removeTyping();
+    addChatMsg('⚠️ Unable to connect to the AI server. Please check your EC2 instance is running.','bot');
+    console.error('Qwen proxy error:', e);
+  }
 }
 
 // ── START: render events immediately ─────────────────────────
