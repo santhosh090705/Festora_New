@@ -1,0 +1,18 @@
+{
+  "myve_version": "1.0",
+  "site_type": "concert_booking",
+  "mcp_endpoint": "https://15.207.117.166.nip.io/mcp",
+  "intents": [
+    {
+      "action": "booking.search",
+      "description": "Search for concerts and events",
+      "params": ["artist", "venue", "date"]
+    },
+    {
+      "action": "booking.reserve",
+      "description": "Reserve tickets for an event",
+      "params": ["event_id", "quantity"]
+    }
+  ],
+  "suggestions_accepted": true
+}
