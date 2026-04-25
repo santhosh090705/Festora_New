@@ -353,9 +353,10 @@ async function callAI(msg){
     var r = await fetch(QWEN_API_URL + '/chat', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': QWEN_API_KEY
-      },
+  'Content-Type': 'application/json',
+  'x-api-key': QWEN_API_KEY,
+  'ngrok-skip-browser-warning': 'true'
+},
       body: JSON.stringify({
         message: msg,
         history: chatHistory.slice(0, -1) // send history excluding current msg
