@@ -360,9 +360,13 @@ function showSuggestions(suggestions){
                       s.action === 'audio.effects' ? 'Try It' : 'Explore';
     card.innerHTML = '<span class="suggestion-text">' + s.display_text + '</span>' +
                      '<button class="suggestion-action-btn">' + actionLabel + '</button>';
-    card.onclick = function(){
-      sendQuick(s.display_text);
-    };
+   card.onclick = function(){
+  if(s.action === 'music.play'){
+    window.open('https://main.d10qhhlua8zs8h.amplifyapp.com', '_blank');
+  } else {
+    sendQuick(s.display_text);
+  }
+};
     container.appendChild(card);
   });
   m.appendChild(container);
