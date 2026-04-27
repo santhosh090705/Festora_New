@@ -351,7 +351,7 @@ function showSuggestions(suggestions){
   container.className = 'suggestions-container';
   var label = document.createElement('div');
   label.className = 'suggestion-label';
-  label.textContent = '&#127775; You might also like';
+  label.innerHTML = '⭐ You might also like';
   container.appendChild(label);
   suggestions.forEach(function(s){
     var card = document.createElement('div');
